@@ -1,69 +1,42 @@
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import Dashboard from "./pages/Dashboard";
+import ProtectedRoute from "./components/ProtectedRoute";
+import { Toaster } from 'react-hot-toast';
+import LandingPage from "./pages/LandingPage"
 
-import { useState } from "react";
+
 
 function App() {
-
-  const [form, setForm] = useState({
-    name: "",
-    email: "",
-    phone: ""
-  });
-
-
-
-
-  const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    const response = await fetch("http://localhost:5000/api/users", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(form)
-    });
-
-    const data = await response.json();
-    console.log("Inserted user:", data.phone);
-
-    alert(data.phone);
-
-    setForm({ name: "", email: "", phone: "" });
-  };
+  /*  {
+    return <h1>Hello working</h1>;
+  }
+  
+   */
 
 
 
   return (
-    <form onSubmit={handleSubmit} style={{ maxWidth: 300 }}>
-      <h3>Add New User</h3>
+    <>  <Toaster position="top-right" reverseOrder={false} />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login />} />
 
-      <input
-        name="name"
-        placeholder="Name"
-        value={form.name}
-        onChange={handleChange}
-      /><br />
+          <Route
+            path="/dashboard"
+            element={
+              <ProtectedRoute>
+                <Dashboard />
+              </ProtectedRoute>
+            }
+          />
+        </Routes>
+      </BrowserRouter></>
 
-      <input
-        name="email"
-        placeholder="Email"
-        value={form.email}
-        onChange={handleChange}
-      /><br />
-
-      <input
-        name="phone"
-        placeholder="Phone"
-        value={form.phone}
-        onChange={handleChange}
-      /><br />
-
-      <button type="submit">Add User</button>
-    </form>
   );
-
 }
 
 export default App;
