@@ -4,8 +4,18 @@ import "@fontsource/poppins"; // kaasaegne font
 import { useState } from "react";
 import { loginUser } from "../services/api";
 import { toast, Toaster } from "react-hot-toast";
+import { AuthProvider } from "../context/AuthContext";
 
 export default function LandingPage() {
+
+    const { user, token, isAuthenticated } = useAuth();
+
+    console.log("AUTH STATUS:", {
+        user,
+        token,
+        isAuthenticated
+    });
+
     const [email, setEmail] = useState("");
 
 

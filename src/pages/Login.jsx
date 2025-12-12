@@ -46,8 +46,7 @@ export default function Login() {
                     className="absolute top-4 right-6 text-[40px] font-light leading-none tracking-tight 
                    text-gray-400 hover:text-pink-500 transition cursor-pointer"
                 >
-                    ╳
-
+                    ×
                 </a>
                 <form onSubmit={handleSubmit} className="space-y-5">
                     <div>
